@@ -1,0 +1,27 @@
+# =============================================================================
+# requirements.txt — Neonatal Sepsis API
+# =============================================================================
+# IMPORTANT: scikit-learn version MUST match what was used to save the pkl.
+# The pkl was saved with scikit-learn 1.6.1.
+# If you retrain with a newer version, update the pin below.
+# Mismatch causes InconsistentVersionWarning and possible silent errors.
+# =============================================================================
+
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+
+# ML core — pin to training versions to prevent preprocessing drift
+numpy==1.26.4
+pandas==2.2.3
+scikit-learn==1.6.1
+joblib==1.4.2
+
+# XGBoost — must match version used during training
+xgboost==2.1.3
+
+# Pydantic v2 (FastAPI 0.115 uses it natively)
+pydantic==2.10.4
+
+# Production server extras
+gunicorn==23.0.0

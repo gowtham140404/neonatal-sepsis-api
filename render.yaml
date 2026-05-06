@@ -1,0 +1,31 @@
+# render.yaml — Render.com Infrastructure as Code
+# Deploy this repo to Render by connecting it in the Render dashboard.
+# Render auto-detects this file and configures your service.
+# Docs: https://render.com/docs/render-yaml-spec
+
+services:
+  - type: web
+    name: neonatal-sepsis-api
+    runtime: python
+    region: oregon        # Change to: frankfurt, singapore, ohio as needed
+    plan: starter         # Free tier; upgrade to standard for always-on (no sleep)
+
+    # Build command — installs all dependencies from requirements.txt
+    buildCommand: pip install -r requirements.txt
+
+    # Start command — production gunicorn + uvicorn workers
+    startCommand: gunicorn main:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --timeout 120 --bind 0.0.0.0:$PORT
+
+    # Auto-deploy on every git push to main branch
+    autoDeploy: true
+
+    # Environment variables
+    envVars:
+      - key: LOG_LEVEL
+        value: INFO          # Use DEBUG for troubleshooting, INFO for production
+      - key: MODEL_DIR
+        value: models        # Relative path to folder containing .pkl files
+      - key: MAX_BATCH
+        value: "100"         # Max patients per batch prediction request
+      - key: PYTHON_VERSION
+        value: 3.11.0        # Must match your local Python version
