@@ -7,15 +7,16 @@
 # Mismatch causes InconsistentVersionWarning and possible silent errors.
 # =============================================================================
 
-fastapi==0.115.6
-uvicorn[standard]==0.34.0
-python-multipart==0.0.20
-
-# ML core — pin to training versions to prevent preprocessing drift
+fastapi==0.110.0
+uvicorn[standard]==0.29.0
+pydantic==2.6.4
+pandas==2.2.2
 numpy==1.26.4
-pandas==2.2.3
 scikit-learn==1.6.1
+xgboost==2.0.3
 joblib==1.4.2
+python-multipart==0.0.9
+gunicorn==21.2.0
 
 # XGBoost — must match version used during training
 xgboost==2.1.3
